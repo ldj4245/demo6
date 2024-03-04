@@ -1,3 +1,5 @@
+SET foreign_key_checks = 0;
+
 DROP TABLE IF EXISTS products;
 
 
@@ -27,7 +29,8 @@ create table order_items(
     product_id int not null,
     order_id int not null,
     order_quantity int not null,
-    primary key(order_item_id)
+    primary key(order_item_id),
+    foreign key (order_id) references orders(order_id)
 );
 
 

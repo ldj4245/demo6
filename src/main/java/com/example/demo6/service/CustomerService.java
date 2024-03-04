@@ -3,6 +3,7 @@ package com.example.demo6.service;
 
 import com.example.demo6.domain.CreateCustomer;
 import com.example.demo6.domain.Customer;
+import com.example.demo6.domain.CustomerDto;
 import com.example.demo6.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +18,13 @@ public class CustomerService {
     }
 
     @Transactional
-    public Customer newCustomer(CreateCustomer customer){
+    public CustomerDto newCustomer(CreateCustomer customer){
         Customer entity = Customer.newCustomer(customer);
-        return customerRepository.save(entity);
+        Customer saved = customerRepository.save(entity);
+        return CustomerDto.builder()
+                .address(saved.getAddress())
+                .name(saved.getName())
+                .phoneNumber(saved.getPhoneNumber())
+                .build();
     }
 }
